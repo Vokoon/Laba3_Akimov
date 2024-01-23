@@ -1,6 +1,4 @@
 - Веб приложение - https://surikov.github.io/rockdice/main.html
-- Source - https://github.com/surikov/rockdice
-
 # Автогенерация музыки без AI
 
 ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/c46d455e-a5e5-448e-908e-59e321c06950)
@@ -164,3 +162,4 @@ https://github.com/surikov/rockdice/blob/main/server/share.php
 <meta property="og:url" content="https://mzxbox.ru/RockDice/share.php?seed=<?php echo $encoded; ?>" />
 <meta property="og:image" content="https://mzxbox.ru/RockDice/picture.php?drums=<?php echo $drums; ?>&prog=<?php echo urlencode($line); ?>&bass=<?php echo $bass; ?>&lead=<?php echo $lead; ?>&pad=<?php echo $pad; ?>" />
 ```
+Источник: https://github.com/surikov/rockdice
