@@ -89,22 +89,5 @@ https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
 - Транспонирование мелодии это перенос всех нот на равное количество полутонов. По-простому - сделать звук выше или ниже.
 - Модуляция мелодии это сдвиг определённых ступеней лада. По-простому - из минора в мажор и т.п.
 
-## Специфика инструментов
 
-При воспроизведении музыкальныз фрагментов учитывается специфика исполнения на конкретных инструментах. Наример:
-
-- при игре на гитаре с дисторшном обычно используют как игру на открытых струнах, так и игру на прижатых струнах (Palm Mute). Т.е. инструемент один, но для реалистичного звучания необходимо два отдельных набора сэмплов [для открытых](https://surikov.github.io/webaudiofontdata/sound/0300_LesPaul_sf2.html) и [приглушенных](https://surikov.github.io/webaudiofontdata/sound/0290_LesPaul_sf2.html) струн
-- на аккустической гитаре удары по струнам вниз и вверх ощутимо различаются, см. [пример](https://surikov.github.io/webaudiofont/examples/strum.html)
-- наборы нот похожих аккордов (например G и Gm) могут зажиматься на совершенно разных ладах, это нужно учитывать при модуляции фрагментов
-- и т.п.
-
-В результате получается сделать звучание сгенерированной музыки менее однообразным.
-
-
-```
-<meta name="twitter:card" content="summary" />
-<meta property="og:title" content="<?php echo $line; ?>" />
-<meta property="og:url" content="https://mzxbox.ru/RockDice/share.php?seed=<?php echo $encoded; ?>" />
-<meta property="og:image" content="https://mzxbox.ru/RockDice/picture.php?drums=<?php echo $drums; ?>&prog=<?php echo urlencode($line); ?>&bass=<?php echo $bass; ?>&lead=<?php echo $lead; ?>&pad=<?php echo $pad; ?>" />
-```
 Результат :https://vk.com/away.php?to=https%3A%2F%2Fmzxbox.ru%2FRockDice%2Fshare.php%3Fseed%3D%257B%2522drumsSeed%2522%253A9%252C%2522bassSeed%2522%253A12%252C%2522leadSeed%2522%253A34%252C%2522padSeed%2522%253A9%252C%2522drumsVolume%2522%253A111%252C%2522bassVolume%2522%253A99%252C%2522leadVolume%2522%253A66%252C%2522padVolume%2522%253A77%252C%2522chords%2522%253A%255B%2522Cm%2522%252C%25222%252F1%2522%252C%2522Ebm%2522%252C%25222%252F1%2522%255D%252C%2522tempo%2522%253A130%252C%2522mode%2522%253A%2522Ionian%2522%252C%2522tone%2522%253A%2522D%2523%2522%252C%2522version%2522%253A%2522v2.89%2522%252C%2522comment%2522%253A%2522%2522%252C%2522ui%2522%253A%2522web%2522%257D&el=snippet
