@@ -5,7 +5,8 @@
 С помощью круглых переключаетель можно менять инструменты учавствующие в композиции.![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/4b311bc4-e4f7-4613-9b88-d6f923f6da68)
 Или же можно нажать на синий кубик ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/f5f6b700-3505-4f8d-b2f0-7eabb425a74b) и тогда инструменты будут подобраны случайным образом.
 
-Перейдём в настройки
+Перейдём в настройки.
+
 ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/96138565-73ae-4600-a429-9a3775bd6c01)
  для более тщательной работы с возможностью сайта![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/3bfdc2cb-b217-41ee-a29e-f15f470ff3e0)
 
