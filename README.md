@@ -8,5 +8,5 @@
 Перейдём в настройки.
 
 ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/96138565-73ae-4600-a429-9a3775bd6c01)
- для более тщательной работы с возможностью сайта![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/3bfdc2cb-b217-41ee-a29e-f15f470ff3e0)
+ для более тщательной работы с возможностью сайта!
 
