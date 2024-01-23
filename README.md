@@ -5,12 +5,7 @@
 
 
 Автоматическое создание музыки по заданным параметрам.
-
-- Открыть в браузере - https://surikov.github.io/rockdice/main.html
-- Исходники - https://github.com/surikov/rockdice
-- Андроидная версия - https://play.google.com/store/apps/details?id=rockdice.chord.progression
-
-Используется Web Audio API, TypeScript, Android WebView, таблично-волновой синтез и элементарная теория музыки.
+Для начала откроем вебсайт https://surikov.github.io/rockdice/main.html в котором реализованы большая часть инструментов для создание музыки, дальнейшии инструкции будут по работе в этом вебприложении.
 
 ---
 
