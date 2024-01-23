@@ -126,10 +126,6 @@ https://github.com/surikov/webaudiofont
 - эхо для объёмного звучания
 - динамический компрессор для выделения голосов
 
-Документация:
-
-https://surikov.github.io/webaudiofont/npm/src/docs/index.html
-
 ## Модуляция фрагментов
 
 Для выбранных (или введённых вручную) аккордов в функции extractMode вычисляется тоника и лад, см.
@@ -160,13 +156,4 @@ https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
 
 В результате получается сделать звучание сгенерированной музыки менее однообразным.
 
-## Хранение состояний
-
-Выбранные аккорды, фрагменты и другие настройки сохраняются в localStorage брайзера, см. [readObjectFromlocalStorage](https://github.com/surikov/rockdice/blob/main/ts/code/zvoogapp.ts#L2376).
-В результате при новом открытии приложении его состояние восстанавливается в том же виде как и в последнем сеансе работы.
-
-При создании ссылки для публикации все данные кодируются в длинный-предлинный URL, пример
-
-https://mzxbox.ru/RockDice/share.php?seed=%7B%22drumsSeed%22%3A21%2C%22bassSeed%22%3A12%2C%22leadSeed%22%3A6%2C%22padSeed%22%3A12%2C%22drumsVolume%22%3A111%2C%22bassVolume%22%3A99%2C%22leadVolume%22%3A66%2C%22padVolume%22%3A77%2C%22chords%22%3A%5B%22Cm%22%2C%222%2F1%22%2C%22Ebm%22%2C%222%2F1%22%5D%2C%22tempo%22%3A130%2C%22mode%22%3A%22Ionian%22%2C%22tone%22%3A%22D%23%22%2C%22version%22%3A%22v2.83%22%2C%22comment%22%3A%22%22%2C%22ui%22%3A%22web%22%7D
-
-
+## Документация:https://surikov.github.io/webaudiofont/npm/src/docs/index.html
