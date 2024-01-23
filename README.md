@@ -88,5 +88,6 @@ https://github.com/Vokoon/Laba3_Akimov/blob/main/zvoogharmonizer
 
 В результате получается сделать звучание сгенерированной музыки менее однообразным.
 Вот что получилось у меня : https://mzxbox.ru/RockDice/share.php?seed=%7B"drumsSeed"%3A9%2C"bassSeed"%3A12%2C"leadSeed"%3A34%2C"padSeed"%3A9%2C"drumsVolume"%3A111%2C"bassVolume"%3A99%2C"leadVolume"%3A66%2C"padVolume"%3A77%2C"chords"%3A%5B"Cm"%2C"2%2F1"%2C"Ebm"%2C"2%2F1"%5D%2C"tempo"%3A130%2C"mode"%3A"Ionian"%2C"tone"%3A"D%23"%2C"version"%3A"v2.89"%2C"comment"%3A""%2C"ui"%3A"web"%7D
+По желанию свои "творения" можно экспортировать почти куда угодно и делится своимии произвидениями.
 
 ## Документация:https://surikov.github.io/webaudiofont/npm/src/docs/index.html
