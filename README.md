@@ -72,19 +72,6 @@
 
 https://github.com/Vokoon/Laba3_Akimov/blob/main/zvoogharmonizer
 
-Для воспроизведения музыки в проект добавлено около двухсот риффов с разными инструментами, их можно посмотреть в папке
-
-https://github.com/surikov/rockdice/tree/main/patterns
-
-Каждый паттерн кроме нот также содержит описание лада и тоники.
-
-Выбранные риффы в функции  morphSchedule транспонируются в тонику выбранных аккордов и проводится модуляция в лад аккордовой прогрессии, см.
-
-https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
-
-- Транспонирование мелодии это перенос всех нот на равное количество полутонов. По-простому - сделать звук выше или ниже.
-- Модуляция мелодии это сдвиг определённых ступеней лада. По-простому - из минора в мажор и т.п.
-
 ## Специфика инструментов
 
 При воспроизведении музыкальныз фрагментов учитывается специфика исполнения на конкретных инструментах. Наример:
@@ -95,5 +82,6 @@ https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
 - и т.п.
 
 В результате получается сделать звучание сгенерированной музыки менее однообразным.
+Вот что получилось у меня : https://mzxbox.ru/RockDice/share.php?seed=%7B"drumsSeed"%3A9%2C"bassSeed"%3A12%2C"leadSeed"%3A34%2C"padSeed"%3A9%2C"drumsVolume"%3A111%2C"bassVolume"%3A99%2C"leadVolume"%3A66%2C"padVolume"%3A77%2C"chords"%3A%5B"Cm"%2C"2%2F1"%2C"Ebm"%2C"2%2F1"%5D%2C"tempo"%3A130%2C"mode"%3A"Ionian"%2C"tone"%3A"D%23"%2C"version"%3A"v2.89"%2C"comment"%3A""%2C"ui"%3A"web"%7D
 
 ## Документация:https://surikov.github.io/webaudiofont/npm/src/docs/index.html
