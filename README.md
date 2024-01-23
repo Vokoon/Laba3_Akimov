@@ -1,9 +1,5 @@
-# rockdice
 
-- Start App launcher - https://surikov.github.io/rockdice/main.html
-- Source - https://github.com/surikov/rockdice
-
-# Автогенерация музыки без AI
+# Использование глубокого обучения для создания инструмента автоматической генерации музыкальных композиций.
 
 ![bender](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/fd496baf-9c29-4a28-95c6-9878866a2b9e)
 
