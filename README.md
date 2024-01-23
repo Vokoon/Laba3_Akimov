@@ -1,6 +1,4 @@
-# rockdice
-
-- Start App launcher - https://surikov.github.io/rockdice/main.html
+- Веб приложение - https://surikov.github.io/rockdice/main.html
 - Source - https://github.com/surikov/rockdice
 
 # Автогенерация музыки без AI
