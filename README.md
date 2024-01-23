@@ -100,27 +100,6 @@ https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
 
 В результате получается сделать звучание сгенерированной музыки менее однообразным.
 
-## Хранение состояний
-
-Выбранные аккорды, фрагменты и другие настройки сохраняются в localStorage брайзера, см. [readObjectFromlocalStorage](https://github.com/surikov/rockdice/blob/main/ts/code/zvoogapp.ts#L2376).
-В результате при новом открытии приложении его состояние восстанавливается в том же виде как и в последнем сеансе работы.
-
-При создании ссылки для публикации все данные кодируются в длинный-предлинный URL, пример
-
-https://mzxbox.ru/RockDice/share.php?seed=%7B%22drumsSeed%22%3A21%2C%22bassSeed%22%3A12%2C%22leadSeed%22%3A6%2C%22padSeed%22%3A12%2C%22drumsVolume%22%3A111%2C%22bassVolume%22%3A99%2C%22leadVolume%22%3A66%2C%22padVolume%22%3A77%2C%22chords%22%3A%5B%22Cm%22%2C%222%2F1%22%2C%22Ebm%22%2C%222%2F1%22%5D%2C%22tempo%22%3A130%2C%22mode%22%3A%22Ionian%22%2C%22tone%22%3A%22D%23%22%2C%22version%22%3A%22v2.83%22%2C%22comment%22%3A%22%22%2C%22ui%22%3A%22web%22%7D
-
-
-## Разметка ссылок
-
-Публикуемые ссылки соответствуют протоколам Open Graph и Twitter Cards.
-
-Эти протоколы поддерживаются больншинством движков соц. сетей. По сути это требование к страницы на которую ведёт ссылка содержать её описание и картинку предпросмотра.
-
-Картинка и страница для публикации формируются динамически обычным php-скриптом, см.
-
-https://github.com/surikov/rockdice/blob/main/server/share.php
-
-вся информация для предпросмотра в тегах
 
 ```
 <meta name="twitter:card" content="summary" />
@@ -128,4 +107,4 @@ https://github.com/surikov/rockdice/blob/main/server/share.php
 <meta property="og:url" content="https://mzxbox.ru/RockDice/share.php?seed=<?php echo $encoded; ?>" />
 <meta property="og:image" content="https://mzxbox.ru/RockDice/picture.php?drums=<?php echo $drums; ?>&prog=<?php echo urlencode($line); ?>&bass=<?php echo $bass; ?>&lead=<?php echo $lead; ?>&pad=<?php echo $pad; ?>" />
 ```
-Источник: https://github.com/surikov/rockdice
+Результат :https://vk.com/away.php?to=https%3A%2F%2Fmzxbox.ru%2FRockDice%2Fshare.php%3Fseed%3D%257B%2522drumsSeed%2522%253A9%252C%2522bassSeed%2522%253A12%252C%2522leadSeed%2522%253A34%252C%2522padSeed%2522%253A9%252C%2522drumsVolume%2522%253A111%252C%2522bassVolume%2522%253A99%252C%2522leadVolume%2522%253A66%252C%2522padVolume%2522%253A77%252C%2522chords%2522%253A%255B%2522Cm%2522%252C%25222%252F1%2522%252C%2522Ebm%2522%252C%25222%252F1%2522%255D%252C%2522tempo%2522%253A130%252C%2522mode%2522%253A%2522Ionian%2522%252C%2522tone%2522%253A%2522D%2523%2522%252C%2522version%2522%253A%2522v2.89%2522%252C%2522comment%2522%253A%2522%2522%252C%2522ui%2522%253A%2522web%2522%257D&el=snippet
