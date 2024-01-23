@@ -70,7 +70,7 @@
 
 Для выбранных (или введённых вручную) аккордов в функции extractMode вычисляется тоника и лад, см.
 
-https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L1156
+https://github.com/Vokoon/Laba3_Akimov/blob/main/zvoogharmonizer
 
 Для воспроизведения музыки в проект добавлено около двухсот риффов с разными инструментами, их можно посмотреть в папке
 
