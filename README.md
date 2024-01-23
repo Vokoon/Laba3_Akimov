@@ -35,7 +35,8 @@
 
 # Описание работы
 
-![rockdiceweb.png](img/rockdiceweb.png)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/027520ce-06f2-45ea-abac-f19e590b04ac)
+
 
 В основном окне можно слайдером выбрать прогрессию. Последовательность аккордов определяет настроение мелодии (слева минорные, справа мажорные, посередине джазовые септаккорды).
 Круглыми переключателями можно выбрать риффы для стандартных 4-х слоёв мелодии
@@ -67,22 +68,26 @@ https://www.youtube.com/watch?v=EDRPy8KtY0c
 По кнопке с шестерёнкой открывается окно настроек.
 Можно редактировать громкость по слоям, скорость, менять аккорды, транспонировать:
 
-![rockdiceopt.png](img/rockdiceopt.png)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/013b2923-a28c-47bb-9841-b20b4f9e602c)
+
 
 Для каждого трека можно выбрать рифф из списка:
 
-![rockdicedrums.png](img/rockdicedrums.png)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/2618be75-69d0-4be6-8713-8c4e0dd06f3d)
+
 
 Также можно выбрать аккордовую последовательность:
 
-![rockdicechords.png](img/rockdicechords.png)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/287b9a8f-bafb-421b-9ddc-c76d0263e037)
+
 
 ## История
 
 Возможность отменить прошлое действие и вернуться в предидущее состояние это типовое требование для любых приложений.
 По кнопке с иконкой Undo (справа вверху) открывается окно с историей подбора мелодий:
 
-![rockdiceundo.png](img/rockdiceundo.png)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/a0c72210-9fcb-4b32-82c4-bd9f2a8173c7)
+
 
 ## Публикация и экспорт
 
@@ -165,72 +170,3 @@ https://github.com/surikov/rockdice/blob/main/ts/code/zvoogharmonizer.ts#L377
 https://mzxbox.ru/RockDice/share.php?seed=%7B%22drumsSeed%22%3A21%2C%22bassSeed%22%3A12%2C%22leadSeed%22%3A6%2C%22padSeed%22%3A12%2C%22drumsVolume%22%3A111%2C%22bassVolume%22%3A99%2C%22leadVolume%22%3A66%2C%22padVolume%22%3A77%2C%22chords%22%3A%5B%22Cm%22%2C%222%2F1%22%2C%22Ebm%22%2C%222%2F1%22%5D%2C%22tempo%22%3A130%2C%22mode%22%3A%22Ionian%22%2C%22tone%22%3A%22D%23%22%2C%22version%22%3A%22v2.83%22%2C%22comment%22%3A%22%22%2C%22ui%22%3A%22web%22%7D
 
 
-## Разметка ссылок
-
-Публикуемые ссылки соответствуют протоколам Open Graph и Twitter Cards.
-
-Эти протоколы поддерживаются больншинством движков соц. сетей. По сути это требование к страницы на которую ведёт ссылка содержать её описание и картинку предпросмотра.
-
-Картинка и страница для публикации формируются динамически обычным php-скриптом, см.
-
-https://github.com/surikov/rockdice/blob/main/server/share.php
-
-вся информация для предпросмотра в тегах
-
-```
-<meta name="twitter:card" content="summary" />
-<meta property="og:title" content="<?php echo $line; ?>" />
-<meta property="og:url" content="https://mzxbox.ru/RockDice/share.php?seed=<?php echo $encoded; ?>" />
-<meta property="og:image" content="https://mzxbox.ru/RockDice/picture.php?drums=<?php echo $drums; ?>&prog=<?php echo urlencode($line); ?>&bass=<?php echo $bass; ?>&lead=<?php echo $lead; ?>&pad=<?php echo $pad; ?>" />
-```
-
-Скрипты выложены на обычный хостинг стоимостью примерно 200р в месяц.
-
-## Android
-
-Для создания мобильной версии можно использовать компонент WebView
-
-https://developer.android.com/reference/android/webkit/WebView
-
-По сути это обычный Chrome встроенный в Activity. Веб-страницы открываются локально из ресурсов приложения, фоагменты и оцифрованные инструменты так же загружаются локально.
-
-По функционалу мобильная версия ничем не отличается от веб-версии. Вот скомилированное приложение (на давно не обновлялось):
-
-https://play.google.com/store/apps/details?id=rockdice.chord.progression
-
-![android.png](img/android.png)
-
-Для WebView есть небольшие ограничения которые следует учитывать.
-
-Например доступ к файловой системе для сохранения мелодий в MIDI- и Wav-файлы. В большом браузере достаточно создать blob с двоичными данными правильным MIME-типом и открыть ссылку на него, например
-
-```
-let blob: Blob = new Blob([dataview], { type: 'audio/wav' });
-let ourl = URL.createObjectURL(blob);
-let a = document.createElement("a");
-document.body.appendChild(a);
-a.href = ourl;
-a.download = 'rockdice';
-a.click();
-```
-
-Браузер корректно распознает тип файла и покажет обычный диалог сохранения с правильным расширением.
-
-Для встроенного WebView придётся создать функцию сохранения средствами Android, встроить её в JavaScript приложения через [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)) и обращаться к ней из веб-страницы.
-
-Так же необходимо чтоб опубликованные ссылки на мелодии открывались не в браузере телефона, а в мобильной версии приложения. Для этого в AndroidManifest.xml приложения нужно настроить фильтр:
-
-```
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data
-        android:host="surikov.github.io"
-        android:pathPrefix="/rockdice/main.html"
-        android:scheme="https"
-        />
-</intent-filter>
-```
-
-Можно обойтись и без мобильной версии т.к. Chrome в телефонах ничем не отличается от Chrome на десктопе.
