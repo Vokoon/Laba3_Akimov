@@ -1,7 +1,7 @@
 - Веб приложение - https://surikov.github.io/rockdice/main.html
-# Автогенерация музыки без AI
+# Автогенерация музыки
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/c46d455e-a5e5-448e-908e-59e321c06950)
+![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/5627d2b8-9e8a-40a8-a75c-d5c03a127b5f)
 
 
 Автоматическое создание музыки по заданным параметрам.
