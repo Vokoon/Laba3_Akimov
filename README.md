@@ -103,9 +103,6 @@ m.write('./test.mid')
 ## Примеры результатов
 
 
-Some sample results can be found in `./exp/` directory. More samples can be
-downloaded from the following links.
-
 - [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1BsNtc8_mpLK5l2F5jncIkHbTcJqtZu2w) (54.7 MB):
   sample inference and interpolation results
 - [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
