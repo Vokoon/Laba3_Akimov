@@ -7,8 +7,6 @@ MuseGAN — проект по созданию музыки. Короче гов
 
 ## Условия
 
-> __Below we assume the working directory is the repository root.__
-
 ### Установить зависимости
 
 - Использование  pipenv (рекомендуется)
