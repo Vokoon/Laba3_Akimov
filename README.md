@@ -5,7 +5,7 @@ MuseGAN — проект по созданию музыки. Короче гов
 Мы обучем модель с помощью данных, собранных из   Lakh Pianoroll, для генерации  поп-песен, состоящих из треков баса, ударных, гитары, фортепиано и струнных.
 
 
-## условия
+## Условия
 
 > __Below we assume the working directory is the repository root.__
 
@@ -20,121 +20,80 @@ MuseGAN — проект по созданию музыки. Короче гов
   pipenv shell
   ```
 
-- Using pip
-
   ```sh
   # Install the dependencies
   pip install -r requirements.txt
   ```
 
-### Prepare training data
+### Подготовьте данные для самостоятельного до обучения
 
-> The training data is collected from
-[Lakh Pianoroll Dataset](https://salu133445.github.io/lakh-pianoroll-dataset/)
-(LPD), a new multitrack pianoroll dataset.
+
+Данные для обучения собираются из набора данных Lakh Pianoroll (LPD), нового многодорожечного набора данных для фортепиано.
 
 ```sh
-# Download the training data
+# Загрузите данные обучения
 ./scripts/download_data.sh
-# Store the training data to shared memory
+# Сохраняйте данные обучения в общей памяти.
 ./scripts/process_data.sh
 ```
 
-You can also download the training data manually
+Вы также можете загрузить данные обучения вручную
 ([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S)).
 
-> As pianoroll matrices are generally sparse, we store only the indices of
-nonzero elements and the array shape into a npz file to save space, and later
-restore the original array. To save some training data `data` into this format,
-simply run
-`np.savez_compressed("data.npz", shape=data.shape, nonzero=data.nonzero())`
+## Обучите новую модель
 
-## Scripts
-
-We provide several shell scripts for easy managing the experiments. (See
-[here](scripts/README.md) for a detailed documentation.)
-
-> __Below we assume the working directory is the repository root.__
-
-### Train a new model
-
-1. Run the following command to set up a new experiment with default settings.
+1. Запустите следующую команду, чтобы настроить новый эксперимент с настройками по умолчанию.
 
    ```sh
-   # Set up a new experiment
+   # Настройте новый эксперимент
    ./scripts/setup_exp.sh "./exp/my_experiment/" "Some notes on my experiment"
    ```
 
-2. Modify the configuration and model parameter files for experimental settings.
+2. Измените файлы конфигурации и параметров модели для  настроек.
 
-3. You can either train the model:
+3. Вы можете обучить модель:
 
      ```sh
-     # Train the model
+     # Обучим модель
      ./scripts/run_train.sh "./exp/my_experiment/" "0"
      ```
 
-   or run the experiment (training + inference + interpolation):
+### Собирайте данные обучения
 
-     ```sh
-     # Run the experiment
-     ./scripts/run_exp.sh "./exp/my_experiment/" "0"
-     ```
-
-### Collect training data
-
-Run the following command to collect training data from MIDI files.
+Запустите следующую команду, чтобы собрать обучающие данные из MIDI-файлов.
 
   ```sh
-  # Collect training data
+  # Собирайте данные обучения
   ./scripts/collect_data.sh "./midi_dir/" "data/train.npy"
   ```
 
-### Use pretrained models
+### Используйте предварительно обученные модели  
 
-1. Download pretrained models
+1. Загрузите предварительно обученные модели
 
    ```sh
-   # Download the pretrained models
+   # Загрузите предварительно обученные модели
    ./scripts/download_models.sh
    ```
 
-   You can also download the pretrained models manually
-   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=19RYAbj_utCDMpU7PurkjsH4e_Vy8H-Uy)).
-
-2. You can either perform inference from a trained model:
+2. Вы можете выполнить вывод из обученной модели:
 
    ```sh
-   # Run inference from a pretrained model
+   # Выполните вывод из предварительно обученной модели
    ./scripts/run_inference.sh "./exp/default/" "0"
    ```
 
-   or perform interpolation from a trained model:
+## Выводы
 
-   ```sh
-   # Run interpolation from a pretrained model
-   ./scripts/run_interpolation.sh "./exp/default/" "0"
-   ```
+образцы будут создаваться одновременно с обучением. Вы можете отключить это поведение, установив save_samples_stepsнулевое значение в файле конфигурации ( config.yaml). По умолчанию сгенерированные данные будут храниться в следующих трех форматах.
 
-## Outputs
+- `.npy`: необработанные массивы numpy
+- `.png`: файлы изображений
+- `.npz`: многодорожечные файлы фортепианороллов
 
-By default, samples will be generated alongside the training. You can disable
-this behavior by setting `save_samples_steps` to zero in the configuration file
-(`config.yaml`). The generated will be stored in the following three formats by
-default.
+Вы можете отключить сохранение в определенном формате , установив save_image_samples и save_pianoroll_samplesв False файле конфигурации.
 
-- `.npy`: raw numpy arrays
-- `.png`: image files
-- `.npz`: multitrack pianoroll files that can be loaded by the
-  _[Pypianoroll](https://salu133445.github.io/pypianoroll/index.html)_
-  package
-
-You can disable saving in a specific format by setting `save_array_samples`,
-`save_image_samples` and `save_pianoroll_samples` to `False`  in the
-configuration file.
-
-The generated pianorolls are stored in .npz format to save space and processing
-time. You can use the following code to write them into MIDI files.
+Созданные фортепианные ролики сохраняются в формате .npz для экономии места и времени обработки. Вы можете использовать следующий код для записи их в MIDI-файлы.
 
 ```python
 from pypianoroll import Multitrack
@@ -143,7 +102,8 @@ m = Multitrack('./test.npz')
 m.write('./test.mid')
 ```
 
-## Sample Results
+## Примеры результатов
+
 
 Some sample results can be found in `./exp/` directory. More samples can be
 downloaded from the following links.
@@ -153,21 +113,8 @@ downloaded from the following links.
 - [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
   sample generated results at different steps
 
-Citing
-------
 
-Please cite the following paper if you use the code provided in this repository.
-
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang, "MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
-Music Generation and Accompaniment," _Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018. (\*equal contribution)
-<br>
-[[homepage](https://salu133445.github.io/musegan)]
-[[arXiv](http://arxiv.org/abs/1709.06298)]
-[[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
-[[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
-[[code](https://github.com/salu133445/musegan)]
-
-## Papers
+## Статьи
 
 __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment__<br>
 Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
