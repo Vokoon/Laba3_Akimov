@@ -1,92 +1,197 @@
+# MuseGAN
 
-# Использование глубокого обучения для создания инструмента автоматической генерации музыкальных композиций.
+MuseGAN — проект по созданию музыки. Короче говоря, мы стремимся создавать полифоническую музыку из нескольких треков (инструментов). Предлагаемые модели способны генерировать музыку как с нуля, так и аккомпанируя априори заданному пользователем треку.
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/047cc785-a74e-415c-abf3-b2cb61f2ce60)
+Мы обучем модель с помощью данных, собранных из   Lakh Pianoroll, для генерации  поп-песен, состоящих из треков баса, ударных, гитары, фортепиано и струнных.
 
 
+## условия
 
-Автоматическое создание музыки по заданным параметрам.
-Для начала откроем вебсайт:
-```Ruby
-https://surikov.github.io/rockdice/main.html
+> __Below we assume the working directory is the repository root.__
+
+### Установить зависимости
+
+- Использование  pipenv (рекомендуется)
+
+  ```sh
+  # Установите зависимости
+  pipenv install
+  # Активируйте виртуальную среду
+  pipenv shell
+  ```
+
+- Using pip
+
+  ```sh
+  # Install the dependencies
+  pip install -r requirements.txt
+  ```
+
+### Prepare training data
+
+> The training data is collected from
+[Lakh Pianoroll Dataset](https://salu133445.github.io/lakh-pianoroll-dataset/)
+(LPD), a new multitrack pianoroll dataset.
+
+```sh
+# Download the training data
+./scripts/download_data.sh
+# Store the training data to shared memory
+./scripts/process_data.sh
 ```
-в котором реализованы большая часть инструментов для создание музыки, дальнейшии инструкции по работе в этом вебприложении ниже.
 
----
+You can also download the training data manually
+([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S)).
 
-Содержание:
+> As pianoroll matrices are generally sparse, we store only the indices of
+nonzero elements and the array shape into a npz file to save space, and later
+restore the original array. To save some training data `data` into this format,
+simply run
+`np.savez_compressed("data.npz", shape=data.shape, nonzero=data.nonzero())`
 
-- [Описание работы](#Описание%20работы)
-  - [Настройки](#Настройки)
-  - [История](#История)
-- [Описание реализации](#Описание%20реализации)
-  - [Воспроизведение](#Воспроизведение)
-  - [Специфика](#Специфика)
+## Scripts
 
-# Описание работы
+We provide several shell scripts for easy managing the experiments. (See
+[here](scripts/README.md) for a detailed documentation.)
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/027520ce-06f2-45ea-abac-f19e590b04ac)
+> __Below we assume the working directory is the repository root.__
 
+### Train a new model
 
-В основном окне можно слайдером выбрать прогрессию. Последовательность аккордов определяет настроение мелодии (слева минорные, справа мажорные, посередине джазовые септаккорды).
-Круглыми переключателями можно выбрать риффы для стандартных 4-х слоёв мелодии
-- 1 - задает ритм
-- 2 - гармоническая основа и ритм
-- 3 - создаёт мелодический рисунок
-- 4 - контрапункт, протяжные ноты показывающие функцию аккорда.
+1. Run the following command to set up a new experiment with default settings.
 
-Можете немного по эксперементировать и послушать что полчучилось прежде чем продвигатся дальше.
+   ```sh
+   # Set up a new experiment
+   ./scripts/setup_exp.sh "./exp/my_experiment/" "Some notes on my experiment"
+   ```
 
-По нажатию на ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/189fea1d-a676-4fba-968f-7ac30f9df5d6) выбираются случайные инструменты.
+2. Modify the configuration and model parameter files for experimental settings.
 
+3. You can either train the model:
 
-## Настройки
+     ```sh
+     # Train the model
+     ./scripts/run_train.sh "./exp/my_experiment/" "0"
+     ```
 
-По кнопке с ![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/d80785f3-e405-45f5-acbb-53e389101437) открывается окно настроек.
-Можно редактировать громкость по слоям, скорость, менять аккорды:
+   or run the experiment (training + inference + interpolation):
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/013b2923-a28c-47bb-9841-b20b4f9e602c)
+     ```sh
+     # Run the experiment
+     ./scripts/run_exp.sh "./exp/my_experiment/" "0"
+     ```
 
+### Collect training data
 
-Для каждого трека можно выбрать рифф из списка:
+Run the following command to collect training data from MIDI files.
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/2618be75-69d0-4be6-8713-8c4e0dd06f3d)
+  ```sh
+  # Collect training data
+  ./scripts/collect_data.sh "./midi_dir/" "data/train.npy"
+  ```
 
+### Use pretrained models
 
-Также можно выбрать аккордовую последовательность:
+1. Download pretrained models
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/287b9a8f-bafb-421b-9ddc-c76d0263e037)
+   ```sh
+   # Download the pretrained models
+   ./scripts/download_models.sh
+   ```
 
+   You can also download the pretrained models manually
+   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=19RYAbj_utCDMpU7PurkjsH4e_Vy8H-Uy)).
 
-## История
-Что делать, если вы создали отличную мелодию но потом куда то нажали несколько раз, а вы не запомнили инструменты которые были использованы. В этом случаи вам поможет История по кнопке с иконкой Undo (справа вверху) открывается отдельное окно с вашей историей подбора мелодий и даже если вы закроете сайт, история не очистится и останется.
+2. You can either perform inference from a trained model:
 
-![image](https://github.com/Vokoon/Laba3_Akimov/assets/120046709/b12f4a32-3873-4c4e-a485-359162e76861)
+   ```sh
+   # Run inference from a pretrained model
+   ./scripts/run_inference.sh "./exp/default/" "0"
+   ```
 
+   or perform interpolation from a trained model:
 
-# Описание реализации
+   ```sh
+   # Run interpolation from a pretrained model
+   ./scripts/run_interpolation.sh "./exp/default/" "0"
+   ```
 
-## Воспроизведение
+## Outputs
 
-Для воспроизведения звука используется библиотека WebAudioFont: В библиотеке содержатся более 2000 оцифрованных инструментов и основные фильтры для обработки звука
+By default, samples will be generated alongside the training. You can disable
+this behavior by setting `save_samples_steps` to zero in the configuration file
+(`config.yaml`). The generated will be stored in the following three formats by
+default.
 
-## Модуляция фрагментов
+- `.npy`: raw numpy arrays
+- `.png`: image files
+- `.npz`: multitrack pianoroll files that can be loaded by the
+  _[Pypianoroll](https://salu133445.github.io/pypianoroll/index.html)_
+  package
 
-Для выбранных (или введённых вручную) аккордов в функции extractMode вычисляется тоника и лад, см.
+You can disable saving in a specific format by setting `save_array_samples`,
+`save_image_samples` and `save_pianoroll_samples` to `False`  in the
+configuration file.
 
-https://github.com/Vokoon/Laba3_Akimov/blob/main/zvoogharmonizer
+The generated pianorolls are stored in .npz format to save space and processing
+time. You can use the following code to write them into MIDI files.
 
-## Специфика
+```python
+from pypianoroll import Multitrack
 
-При воспроизведении музыкальныз фрагментов учитывается специфика исполнения на конкретных инструментах. Наример:
+m = Multitrack('./test.npz')
+m.write('./test.mid')
+```
 
-- при игре на гитаре с дисторшном обычно используют как игру на открытых струнах, так и игру на прижатых струнах (Palm Mute). Т.е. инструемент один, но для реалистичного звучания необходимо два отдельных набора сэмплов для открытых и приглушенных струн
-- на аккустической гитаре удары по струнам вниз и вверх ощутимо различаются, см. 
-- наборы нот похожих аккордов (например G и Gm) могут зажиматься на совершенно разных ладах, это нужно учитывать при модуляции фрагментов
-- и т.п.
+## Sample Results
 
-В результате получается сделать звучание сгенерированной музыки менее однообразным.
-Вот что получилось у меня : https://mzxbox.ru/RockDice/share.php?seed=%7B"drumsSeed"%3A9%2C"bassSeed"%3A12%2C"leadSeed"%3A34%2C"padSeed"%3A9%2C"drumsVolume"%3A111%2C"bassVolume"%3A99%2C"leadVolume"%3A66%2C"padVolume"%3A77%2C"chords"%3A%5B"Cm"%2C"2%2F1"%2C"Ebm"%2C"2%2F1"%5D%2C"tempo"%3A130%2C"mode"%3A"Ionian"%2C"tone"%3A"D%23"%2C"version"%3A"v2.89"%2C"comment"%3A""%2C"ui"%3A"web"%7D
-По желанию свои "творения" можно экспортировать почти куда угодно и делится своимии произвидениями.
+Some sample results can be found in `./exp/` directory. More samples can be
+downloaded from the following links.
 
-## Документация от куда я брал:https://surikov.github.io/webaudiofont/npm/src/docs/index.html
+- [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1BsNtc8_mpLK5l2F5jncIkHbTcJqtZu2w) (54.7 MB):
+  sample inference and interpolation results
+- [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
+  sample generated results at different steps
+
+Citing
+------
+
+Please cite the following paper if you use the code provided in this repository.
+
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang, "MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
+Music Generation and Accompaniment," _Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018. (\*equal contribution)
+<br>
+[[homepage](https://salu133445.github.io/musegan)]
+[[arXiv](http://arxiv.org/abs/1709.06298)]
+[[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
+[[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
+[[code](https://github.com/salu133445/musegan)]
+
+## Papers
+
+__MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment__<br>
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018.<br>
+[[homepage](https://salu133445.github.io/musegan)]
+[[arXiv](http://arxiv.org/abs/1709.06298)]
+[[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
+[[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
+[[code](https://github.com/salu133445/musegan)]
+
+__Convolutional Generative Adversarial Networks with Binary Neurons for Polyphonic Music Generation__<br>
+Hao-Wen Dong and Yi-Hsuan Yang<br>
+_Proceedings of the 19th International Society for Music Information Retrieval Conference (ISMIR)_, 2018.<br>
+[[homepage](https://salu133445.github.io/bmusegan)]
+[[video](https://youtu.be/r9C2Q2oR9Ik)]
+[[paper](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf)]
+[[slides](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf)]
+[[slides (long)](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf)]
+[[poster](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf)]
+[[arXiv](https://arxiv.org/abs/1804.09399)]
+[[code](https://github.com/salu133445/bmusegan)]
+
+__MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_Late-Breaking Demos of the 18th International Society for Music Information Retrieval Conference (ISMIR)_, 2017.<br>
+[[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
+[[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
